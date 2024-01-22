@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
@@ -58,10 +60,10 @@ class MainActivity : AppCompatActivity() {
                 var resultText = " "
                 var i =1
                 for(face in faces) {
-                    resultText = "Face Number $i" +
-                            "\nSmile : ${face.smilingProbability?.times(100)}%\n" +
-                            "\nLeft Eye Open : ${face.leftEyeOpenProbability?.times(100)}%\n"
-                            "\nRight Eye Open : ${face.rightEyeOpenProbability?.times(100)}%\n"
+                    resultText="Face Number $i \n" +
+                    "Smile : ${face.smilingProbability?.times(100)}%\n" +
+                    "Left Eye Open : ${face.leftEyeOpenProbability?.times(100)}%\n" +
+                    "Right Eye Open : ${face.rightEyeOpenProbability?.times(100)}%"
                     i++
                 }
 
@@ -69,7 +71,9 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "No face detected", Toast.LENGTH_LONG).show()
                 }
                 else{
-                    Toast.makeText(this, resultText, Toast.LENGTH_LONG).show()
+                    val cardText=findViewById<TextView>(R.id.cardText)
+                    cardText.text=resultText
+
                 }
             }
             .addOnFailureListener { e ->
